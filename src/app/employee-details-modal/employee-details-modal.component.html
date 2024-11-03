@@ -1,0 +1,84 @@
+<div *ngIf="isOpen" class="modal-overlay">
+  <div class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Employee Details</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body" *ngIf="employee">
+          <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+              <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
+              <p class="text-muted mb-0">ID: {{ employee.id }}</p>
+            </div>
+            <span
+              class="badge rounded-pill"
+              [ngClass]="getRatingClass(employee.rating)"
+            >
+              Current Rating: {{ employee.rating }}
+            </span>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="info-item mb-3">
+                <h6 class="text-uppercase text-muted mb-1">Position</h6>
+                <p class="mb-0">{{ employee.position }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-item mb-3">
+                <h6 class="text-uppercase text-muted mb-1">Department</h6>
+                <p class="mb-0">{{ employee.department }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rating-history">
+            <h6 class="text-uppercase text-muted mb-3">Rating History</h6>
+
+            <div class="rating-timeline">
+              <div
+                class="rating-item"
+                *ngFor="let history of employee.ratingHistory"
+              >
+                <div
+                  class="rating-item-header d-flex justify-content-between align-items-center"
+                >
+                  <span class="rating-date">{{ history.date }}</span>
+                  <span
+                    class="badge rounded-pill"
+                    [ngClass]="getRatingClass(history.rating)"
+                  >
+                    {{ history.rating }}
+                  </span>
+                </div>
+                <div class="rating-comment mt-2" *ngIf="history.comment">
+                  {{ history.comment }}
+                </div>
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
